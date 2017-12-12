@@ -4,7 +4,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Test : MonoBehaviour {
+public class KeyCode_Test : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
