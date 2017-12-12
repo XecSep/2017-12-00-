@@ -27,7 +27,7 @@ public class Test : MonoBehaviour {
         translation *= Time.deltaTime;
         rotation *= Time.deltaTime;
 
-        transform.Translate(0, 0, translation);
-        transform.Rotate(0, rotation, 0);
+        transform.Translate(0, 0, translation);	//Translate: Position(위치)을 조작한다.
+        transform.Rotate(0, rotation, 0);	//Rotate: Rotation(회전)을 조작한다.
     }
 }
