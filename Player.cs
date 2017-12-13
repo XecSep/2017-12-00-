@@ -1,6 +1,9 @@
 # 2017-12-00-
 2017-12-00에 만든 유니티 게임 프로젝트입니다.
 
+//사용한 함수들 목록이다.
+//Input, Input.GetAxis, Debug.Log, transform, transform.Translate, Vector3, Time.deltaTIme, Input.GetAxisRaw, Input.GetKey, Input.GetKeyDown, Input.GetKeyUp, KeyCode.~, KeyCode.~Arrow, KeyCode.Keypad~
+	
 //https://m.blog.naver.com/ocy1011/220719994444 //https://m.blog.naver.com/ocy1011/220720464523
 using UnityEngine;
 using System.Collections;
