@@ -6,7 +6,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Vector3 : MonoBehaviour {
+public class AxisTranslate : MonoBehaviour {
 
     float h, v;
     int moveSpeed = 5; 
