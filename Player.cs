@@ -1,10 +1,9 @@
 # 2017-12-00-
 2017-12-00에 만든 유니티 게임 프로젝트입니다.
 
-//사용한 함수들 목록이다.
-//Input, Input.GetAxis, Debug.Log, transform, transform.Translate, Vector3, Time.deltaTIme, Input.GetAxisRaw, Input.GetKey, Input.GetKeyDown, Input.GetKeyUp, KeyCode.~, KeyCode.~Arrow, KeyCode.Keypad~
+//사용한 키워드 목록이다.
+//Input, Input.GetAxis(), Debug.Log(), transform, transform.Translate(), Vector3, Time.deltaTIme, Input.GetAxisRaw(), Input.GetKey(), Input.GetKeyDown(), Input.GetKeyUp(), KeyCode.~, KeyCode.~Arrow, KeyCode.Keypad~, transform.rotation, Quaternion.LookRotation(), 
 	
-//https://m.blog.naver.com/ocy1011/220719994444 //https://m.blog.naver.com/ocy1011/220720464523
 using UnityEngine;
 using System.Collections;
 
@@ -12,6 +11,12 @@ public class Player : MonoBehaviour {
 
     float h, v; //가로축 입력값 변수이다. //세로축 입력값 변수이다.
     int moveSpeed = 5;  //이동속도 변수이다. //초기화를 해주지 않으면 int moveSpeed=0인 상태이기 때문에, 이동속도가 0이라 움직이지 않는다.
+    int rotateSpeed = 3;
+
+    public Transform from;
+    public Transform to;
+
+    public float speed = 0.1f;
 
     //유니티에서 흔하게 사용되는 변수는 int, float, string, bool과 Vector2, Vector3이다.
     //int는...
@@ -23,8 +28,9 @@ public class Player : MonoBehaviour {
 
     //유니티에서 게임을 실행할 때 한 번만 실행하는 함수이다.
     // Use this for initialization 
-    void Start () {
-	
+    void Start ()
+    {
+       
 	}
 
     //특정한 조건이 없으면 계속 실행하는 함수이다.
@@ -48,7 +54,7 @@ public class Player : MonoBehaviour {
 
         /*
         //이런 식으로 입력하는 것이 보기 좋다.
-        Vector3 dir = new Vector3(h, 0, v);
+        Vector3 dir = new Vector3(h, 0, v); //dir:direction.방향.
         transform.Translate(dir);
         */
 
@@ -98,7 +104,8 @@ public class Player : MonoBehaviour {
         Debug.Log("moveSpeed=" + moveSpeed);
         */
 
-        //코드를 정리한다.
+        /*
+        //'오브젝트의 이동' 코드를 정리한다.
         h = Input.GetAxisRaw("Horizontal");
         v = Input.GetAxisRaw("Vertical");
 
@@ -115,5 +122,74 @@ public class Player : MonoBehaviour {
 
         Vector3 dir = new Vector3(h, 0, v) * moveSpeed * Time.deltaTime;
         transform.Translate(dir);
+        */
+
+        //오브젝트의 회전 https://m.blog.naver.com/ocy1011/220721280305
+        /*
+        //Parent-Child:Capsule(Parent)을 선택하고 Cube(Child)를 생성한다. 세모를 누르면 상위오브젝트(Parent)의 하위오브젝트(Child)들을 보여주거나 감출 수 있다. 상위오브젝트(Parent)의 하위오브젝트(Child)가 되면 Transform에 영향을 받는다.
+        //실행시 Capsule의 위치에 따라 Cube의 위치도 바뀐다. 하지만 Cube의 Transform을 살펴보면 변하는게 없다. Cube가 Capsule의 하위오브젝트이기 때문이다. //하위오브젝트의 Position,Rotation,Scale을 localPosition,localRotation,localScale이라 한다. local:지역.
+        h = Input.GetAxisRaw("Horizontal");
+        v = Input.GetAxisRaw("Vertical");
+
+        if (Input.GetKeyDown(KeyCode.Z))
+            moveSpeed = 1;
+        if (Input.GetKeyDown(KeyCode.X))
+            moveSpeed = 5;
+        if (Input.GetKeyDown(KeyCode.C))
+            moveSpeed = 10;
+
+        Vector3 dir = new Vector3(h, 0, v) * moveSpeed * Time.deltaTime;
+        transform.rotation = Quaternion.LookRotation(Vector3.one);  //transform:해당 오브젝트의 Transform이다. transform.rotation:Transform의 Rotation이다. //Quaternion.LookRotation(dir):rotation값이다. Quaternion:사원수이다.4개의 수로 rotation을 표현한다.rotation값을 만들 때 사용하는 기능이다.유니티에서 사원수 중 마지막 수w를 잘 모르면 건들지 말라고 권고한다.w값을 몰라도 Quaternion기능을 잘 사용한다. //LookRotation():괄호 안에 dir(방향)으로 바라보게 만든다.
+        Debug.Log(transform.rotation);  //(0,0,0,0):rotation이 4개의 수로 나온다.사원수이다.
+        */
+
+        //Quaternion.LookRotation():괄호 안의 방향으로 쳐다보게 만든다.
+
+        //Look rotation viewing vector is zero:dir(0,0,0).자신의 위치를 바라본다.의미없는 곳을 바라본다.
+
+        /*
+        //"Look rotation viewing vector is zero"오류를 해결한다.
+        h = Input.GetAxisRaw("Horizontal");
+        v = Input.GetAxisRaw("Vertical");
+
+        if (Input.GetKeyDown(KeyCode.Z))
+            moveSpeed = 1;
+        if (Input.GetKeyDown(KeyCode.X))
+            moveSpeed = 5;
+        if (Input.GetKeyDown(KeyCode.C))
+            moveSpeed = 10;
+
+        if(!(h==0&&v==0))   //자신을 바라보지 않을 때 실행된다.
+        {
+            Vector3 dir = new Vector3(h, 0, v) * moveSpeed * Time.deltaTime;
+            transform.rotation = Quaternion.LookRotation(dir);
+            transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);  //Vector3.forwar:(0,0,1)이다. //Vector3.back은 (0,0,-1)이다.Vector3.up은 (0,1,0)이다.Vector3.down은 (0,-1,0)이다.Vector3.right은 (1,0,0)이다.Vector3.left은 (-1,0,0)이다.Vector3.zero은 (0,0,0)이다.Vector3.one은 (1,1,1)이다.
+        }
+        */
+
+        /*
+        h = Input.GetAxisRaw("Horizontal");
+        v = Input.GetAxisRaw("Vertical");
+
+        if (Input.GetKeyDown(KeyCode.Z))
+            moveSpeed = 1;
+        if (Input.GetKeyDown(KeyCode.X))
+            moveSpeed = 5;
+        if (Input.GetKeyDown(KeyCode.C))
+            moveSpeed = 10;
+
+        if (!(h == 0 && v == 0))
+        {
+            Vector3 dir = new Vector3(h, 0, v);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * rotateSpeed);   //Lerp:Lerp(a,b,t)이다.a를 b까지 t시간만큼 비례하여 바꾼다. t는 0~1값을 입력한다.최대값1을 입력하면 a는 한번에 b가 된다.중간값0.5f를 입력하면 a는 0.5시간동안 b가 된다. 일반적으로 a = ~Lerp(a,b,t)형태로 사용한다. //Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * 3)은 transform.rotation을 Quaternion.LookRotation(dir)까지 Time.deltaTime * 3시간만큼 바꾼다.바꾼 값을 transform.rotation = 통해 Capsule의 rotation값에 넣어준다.
+            transform.Translate(Vector3.forward*moveSpeed*Time.deltaTime);
+        }
+        */
+
+        //'오브젝트 회전' 코드를 정리한다.
+        //blank.
+
+        //Rigidbody https://m.blog.naver.com/ocy1011/220721895604
+
     }
 }
