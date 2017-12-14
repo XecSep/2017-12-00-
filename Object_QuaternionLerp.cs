@@ -6,7 +6,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Object_Lerp : MonoBehaviour {
+public class Object_QuaternionLerp : MonoBehaviour {
 
     public GameObject a;
 
