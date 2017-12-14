@@ -19,9 +19,10 @@ public class Vector3 : MonoBehaviour {
         Debug.Log("Vector3.one:" + Vector3.one);    //(1,1,1)
     }
 	
-	// Update is called once per frame
-	void Update ()
+    // Update is called once per frame
+    void Update ()
     {
 
     }
 }
+
