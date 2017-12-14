@@ -6,7 +6,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Player_BasicTransform. : MonoBehaviour {
+public class Object_BasicTransform. : MonoBehaviour {
 
     // Use this for initialization
     void Start ()
