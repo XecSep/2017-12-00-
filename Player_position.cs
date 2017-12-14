@@ -13,7 +13,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Vector3 : MonoBehaviour {
+public class Player_position : MonoBehaviour {
 
     // Use this for initialization
     void Start ()
