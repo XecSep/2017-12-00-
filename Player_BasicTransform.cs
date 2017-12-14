@@ -17,8 +17,8 @@ public class Player_BasicTransform. : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-      transform.position = new Vector3(1, 1, 1);
-      transform.rotation = Quaternion.LookRotation(Vector3.back);
-      transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+      transform.position = new Vector3(1, 1, 1);	//Transform > Position값을 변경한다.
+      transform.rotation = Quaternion.LookRotation(Vector3.back);	//Transform > Rotation값을 변경한다.
+      transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);	//Transform > Scale값을 변경한다.
     }
 }
