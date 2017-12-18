@@ -4,7 +4,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Vector_position : MonoBehaviour {
+public class Vector3_position : MonoBehaviour {
 
 	// Use this for initialization
 	void Start ()
